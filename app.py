@@ -1,11 +1,9 @@
 import shutil
 import subprocess
-
-folder_path = 'tmp/'
-process_path = 'C:\\Program Files (x86)\\BraveSoftware\\Brave-Browser\\Application\\brave.exe'
+import configparser
 
 # Parameters can be ENABLED or DISABLED
-def internet_state(state):
+def internet_state_controller(state):
     subprocess.run(["netsh", "interface", "set", "interface", "Wi-Fi", state])
 
 
@@ -16,12 +14,15 @@ def delete_folder(folder_path):
         print("Error: %s : %s" % (folder_path, e.strerror))
 
 
-def run_subproccess():
-    subprocess.run(process_path)
+def run_corel(corel_process_path):
+    subprocess.run(corel_process_path)
 
 
 if __name__ == "__main__":
-    internet_state("DISABLED")
-    delete_folder(folder_path)
-    run_subproccess()
-    internet_state("ENABLED")
+    config = configparser.RawConfigParser()   
+    configFilePath = r'.config'
+    config.read(configFilePath)
+    internet_state_controller("DISABLED")
+    delete_folder(config.get('your-config', 'folder_path'))
+    run_corel(config.get('your-config', 'corel_process_path'))
+    internet_state_controller("ENABLED")
