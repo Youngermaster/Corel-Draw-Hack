@@ -22,7 +22,7 @@ if __name__ == "__main__":
     config = configparser.RawConfigParser()   
     configFilePath = r'.config'
     config.read(configFilePath)
-    internet_state_controller("DISABLED")
+    # internet_state_controller("DISABLED")
     delete_folder(config.get('your-config', 'folder_path'))
     run_corel(config.get('your-config', 'corel_process_path'))
-    internet_state_controller("ENABLED")
+    # internet_state_controller("ENABLED")
